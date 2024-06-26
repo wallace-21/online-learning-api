@@ -1,6 +1,10 @@
 <h1>Online Learning API</h1>
-<p>For your online learning platform project, the API will serve multiple purposes, catering to both students and instructors. Here’s a detailed breakdown of what the API will be serving:</p>
+<p>With numerous organizations like Meta, Amazon, Google, IBM, and ALX offering online courses, the landscape of online education is rapidly expanding. This growing diversity in online learning platforms presents a unique opportunity. To support developers who aim to integrate educational content seamlessly into their applications, I decided to create an API that simplifies and accelerates the development process. This API will streamline access to a wide range of online courses, ultimately saving developers valuable time and effort.</p>
 
+<p>The API will serve multiple purposes, catering to both students and instructors. Here’s a detailed breakdown of what the API will be serving:</p>
+
+<h2> Course Management</h2>
+<ul>
 <li>Course Operations:</li>
 <ul>
    <li>Create Course: Allow instructors to create new courses.</li>
