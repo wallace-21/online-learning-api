@@ -144,7 +144,7 @@ class UserResource(Resource):
             # Check for forbidden fields
             if args["nationality"] is not None:
                 abort(400, message="Updating 'nationality' is not allowed")
-            if args["instructor"] is None:
+            if args["instructor"] is not None:
                 abort(400, message="Updating 'instructor' is not allowed")
 
             # Update fields if provided
