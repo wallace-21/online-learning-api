@@ -1,3 +1,8 @@
+#!/usr/bin/pytho3
+
+"""
+    imports that are necessary for the program
+"""
 from database import Base
 from sqlalchemy import Column, Integer, String, DateTime
 
