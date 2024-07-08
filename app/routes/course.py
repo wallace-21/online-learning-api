@@ -11,19 +11,32 @@ from models.course import Course
 
 # Parser for POST request arguments (creates)
 course_post_args = reqparse.RequestParser()
-course_post_args.add_argument("name", type=str, help="Enter name of the course", required=True)
-course_post_args.add_argument("price", type=int, help="How much much does the course cost?", default=0)
-course_post_args.add_argument("duration", type=str, help="How long does the the course take?", default="selfpace")
-course_post_args.add_argument("description", type=str, help="description of the course")
-course_post_args.add_argument("certification", type=bool, help="Does the course provide certification", default=False)
+course_post_args.add_argument("name", type=str,
+                              help="Enter name of the course", required=True)
+course_post_args.add_argument("price", type=int,
+                              help="How much much does the course cost?",
+                              default=0)
+course_post_args.add_argument("duration", type=str,
+                              help="How long does the the course take?",
+                              default="selfpace")
+course_post_args.add_argument("description", type=str,
+                              help="description of the course")
+course_post_args.add_argument("certification", type=bool,
+                              help="Does the course provide certification",
+                              default=False)
 
 # Parser for PUT request arguments (updates)
 course_update_args = reqparse.RequestParser()
-course_update_args.add_argument("name", type=str, help="Enter name of the course")
-course_update_args.add_argument("price", type=int, help="How much much does the course cost?",)
-course_update_args.add_argument("duration", type=str, help="How long does the the course take?")
-course_update_args.add_argument("description", type=str, help="description of the course")
-course_update_args.add_argument("certification", type=bool, help="Does the course provide certification")
+course_update_args.add_argument("name", type=str,
+                                help="Enter name of the course")
+course_update_args.add_argument("price", type=int,
+                                help="How much much does the course cost?",)
+course_update_args.add_argument("duration", type=str,
+                                help="How long does the the course take?")
+course_update_args.add_argument("description", type=str,
+                                help="description of the course")
+course_update_args.add_argument("certification", type=bool,
+                                help="Does the course provide certification")
 
 # Fields for marshalling the Course model
 resource_fields = {
@@ -35,14 +48,16 @@ resource_fields = {
         "description": fields.String
 }
 
+
 class CourseResource(Resource):
     """
         Resource for handling individual course operations,
         such as creating and retrieving courses.
     """
+
     @marshal_with(resource_fields)
     def post(self):
-         """
+        """
             Handle POST requests to create a new course.
 
             Parses the request arguments, creates a new course,
@@ -138,6 +153,7 @@ class CourseResource(Resource):
 
             return {"message": "Course deleted"}
 
+
 class CoursesResource(Resource):
     """
         Resource for handling operations to retrieving all users.
@@ -153,4 +169,5 @@ class CoursesResource(Resource):
         """
         with get_db() as db:
             courses = db.query(Course).all()
+
             return courses, 201
