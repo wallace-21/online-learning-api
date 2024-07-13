@@ -22,8 +22,7 @@ course_post_args.add_argument("duration", type=str,
 course_post_args.add_argument("description", type=str,
                               help="description of the course")
 course_post_args.add_argument("certification", type=bool,
-                              help="Does the course provide certification",
-                              default=False)
+                              help="Does the course provide certification", default=False)
 
 # Parser for PUT request arguments (updates)
 course_update_args = reqparse.RequestParser()
@@ -40,7 +39,7 @@ course_update_args.add_argument("certification", type=bool,
 
 # Fields for marshalling the Course model
 resource_fields = {
-        "id": fields.String,
+        "id": fields.Integer,
         "name": fields.String,
         "price": fields.Integer,
         "duration": fields.String,
@@ -67,8 +66,7 @@ class CourseResource(Resource):
                 The created course object and a 201 status code.
         """
         args = course_post_args.parse_args()
-        course = Course(id=str(uuid4()),
-                        name=args["name"],
+        course = Course(name=args["name"],
                         price=args["price"],
                         duration=args["duration"],
                         certification=args["certification"],
