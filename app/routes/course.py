@@ -135,9 +135,14 @@ class CourseResource(Resource):
             if not course:
                 abort(404, message="Course not found")
 
+            if args["certification"] is not None:
+                abort(400, message="Updating 'certification' is not allowed")
+
+            if args["certification"] is None:
+                course.certification = True
+
             if args["tags"] is not None:
                 course.tags = args["tags"]
-
             if args["max_students"] is not None:
                 course.max_students = args["max_students"]
             if args["name"] is not None:
