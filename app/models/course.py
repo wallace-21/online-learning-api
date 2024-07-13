@@ -24,11 +24,16 @@ class Course(Base):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(length=50), nullable=False, index=True, unique=True)
     price = Column(Integer, nullable=True)
-    duration = Column(String(length=25), nullable=False)
+    duration = Column(String(length=25), nullable=False, default="self-paced")
     description = Column(Text, nullable=True)
     certifaction = Column(Boolean, nullable=False, default=False)
+    language = Column(String(length=20), nullable=False)
+    tags = Column(String(length=100), nullable=True)
+    max_students = Column(Integer, nullable=False)
+    # number_of_assignment = Column(Integer, nullable=False)
+    # number_of_lectures = Column(Integer, nullable=False)
 
-    def __init__(self, name, price, duration, description, certification):
+    def __init__(self, name, price, duration, description, certification, language, tags, max_students):
         """
             Initialize a new Course instance
         """
@@ -37,3 +42,6 @@ class Course(Base):
         self.duration = duration
         self.description = description
         self.certification = certification
+        self.language = language
+        self.tags = tags
+        self.max_students = max_students
