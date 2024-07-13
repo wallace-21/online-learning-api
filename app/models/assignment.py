@@ -27,11 +27,10 @@ class Assignment(Base):
     due_date = Column(DateTime, nullable=False)
     description = Column(Text, nullable=False)
 
-    def __init__(self, id, name, released_date, due_date, description):
+    def __init__(self, name, released_date, due_date, description):
         """
             Initialize a new Assignment instance.
         """
-        self.id = id
         self.name = name
         self.released_date = released_date
         self.due_date = due_date

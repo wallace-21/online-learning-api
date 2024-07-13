@@ -21,19 +21,19 @@ class Course(Base):
     """
     __tablename__ = "courses"
 
-    id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(length=50), nullable=False, index=True, unique=True)
     price = Column(Integer, nullable=True)
     duration = Column(String(length=25), nullable=False)
     description = Column(Text, nullable=True)
-    certifaction = Column(Boolean, nullable=False)
+    certifaction = Column(Boolean, nullable=False, default=False)
 
-    def __init__(self, id, name, price, description, certification):
+    def __init__(self, name, price, duration, description, certification):
         """
             Initialize a new Course instance
         """
-        self.id = id
         self.name = name
         self.price = price
+        self.duration = duration
         self.description = description
         self.certification = certification
