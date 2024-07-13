@@ -34,7 +34,7 @@ quiz_update_args.add_argument("topic", type=str,
 
 # Fields for marshalling the Quiz model
 resource_fields = {
-        "id": fields.String,
+        "id": fields.Integer,
         "name": fields.String,
         "number_of_questions": fields.Integer,
         "topic": fields.String
@@ -59,8 +59,7 @@ class QuizResource(Resource):
                 The created quiz object and a 201 status code.
         """
         args = quiz_post_args.parse_args()
-        quiz = Quiz(id=str(uuid4()),
-                    name=args["name"],
+        quiz = Quiz(name=args["name"],
                     number_of_questions=args["number_of_questions"],
                     topic=args["topic"])
 
@@ -74,7 +73,7 @@ class QuizResource(Resource):
         return quiz, 201
 
     @marshal_with(resource_fields)
-    def get(self, quiz_name):
+    def get(self, quiz_id):
         """
             Handle GET requests to retrieve a quiz by name.
 
@@ -87,14 +86,14 @@ class QuizResource(Resource):
         """
         with get_db() as db:
             # Query the user by Name
-            quiz = db.query(Quiz).filter_by(name=quiz_name).first()
+            quiz = db.query(Quiz).filter_by(id=quiz_id).first()
             if not quiz:
                 abort(404, message="Quiz not found")
 
         return quiz, 201
 
     @marshal_with(resource_fields)
-    def put(self, quiz_name):
+    def put(self, quiz_id):
         """
             Update an existing quiz's details.
 
@@ -109,7 +108,7 @@ class QuizResource(Resource):
 
         with get_db() as db:
             # Query the user by ID
-            quiz = db.query(Quiz).filter_by(id=quiz_name).first()
+            quiz = db.query(Quiz).filter_by(id=quiz_id).first()
             if not quiz:
                 abort(404, message="Quiz not found")
 
@@ -127,7 +126,7 @@ class QuizResource(Resource):
 
         return quiz, 201
 
-    def delete(self, quiz_name):
+    def delete(self, quiz_id):
         """ Delete an existing course.
 
             Args:
@@ -142,7 +141,7 @@ class QuizResource(Resource):
 
         with get_db() as db:
             # Query the user by ID
-            quiz = db.query(Quiz).filter_by(id=quiz_name).first()
+            quiz = db.query(Quiz).filter_by(id=quiz_id).first()
             if not quiz:
                 abort(404, message="Quiz not found")
 
