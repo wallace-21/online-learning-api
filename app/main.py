@@ -4,7 +4,8 @@ from config import Config
 from database import Base, engine, get_db
 from models.user import User
 from routes.user import UserResource, UsersResource
-
+from routes.course import CourseResource, CoursesResource
+from routes.quiz import QuizResource, QuizzesResource
 app = Flask(__name__)
 app.config.from_object(Config)
 api = Api(app)
@@ -19,6 +20,10 @@ Base.metadata.create_all(bind=engine)
 """
 api.add_resource(UserResource, "/user", "/user/<string:user_id>")
 api.add_resource(UsersResource, "/users")
+api.add_resource(CourseResource, "/course", "/course/<string:course_name>")
+api.add_resource(CoursesResource, "/courses")
+api.add_resource(QuizResource, "/quiz", "/quiz/<int:quiz_id>")
+api.add_resource(QuizzesResource, "/quizzes")
 
 if __name__ == "__main__":
     app.run(debug=True)
