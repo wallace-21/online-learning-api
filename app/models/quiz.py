@@ -4,8 +4,8 @@
     imports that are necessary for the program
 """
 from database import Base
-from sqlalchemy import Column, Integer, String, DateTime
-
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 
 class Quiz(Base):
     """
@@ -23,11 +23,15 @@ class Quiz(Base):
     name = Column(String(length=25), nullable=False, unique=True)
     number_of_questions = Column(Integer, nullable=False)
     topic = Column(String, nullable=False)
+    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
 
-    def __init__(self, name, number_of_questions, topic):
+    course = relationship("Course", back_populates="quizzes")
+
+    def __init__(self, name, number_of_questions, topic, course_id):
         """
             Initialize a new Quiz instance.
         """
         self.name = name
         self.number_of_questions = number_of_questions
         self.topic = topic
+        self.course_id = course_id

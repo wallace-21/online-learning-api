@@ -5,6 +5,7 @@
 """
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text
 from database import Base
+from sqlalchemy.orm import relationship
 
 
 class Course(Base):
@@ -26,12 +27,14 @@ class Course(Base):
     price = Column(Integer, nullable=True)
     duration = Column(String(length=25), nullable=False, default="self-paced")
     description = Column(Text, nullable=True)
-    certifaction = Column(Boolean, nullable=False, default=False)
+    certification = Column(Boolean, nullable=False, default=False)
     language = Column(String(length=20), nullable=False)
     tags = Column(String(length=100), nullable=True)
     max_students = Column(Integer, nullable=False)
     # number_of_assignment = Column(Integer, nullable=False)
     # number_of_lectures = Column(Integer, nullable=False)
+    quizzes = relationship("Quiz", back_populates="course")
+
 
     def __init__(self, name, price, duration, description, certification, language, tags, max_students):
         """
