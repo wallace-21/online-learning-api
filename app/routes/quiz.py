@@ -16,6 +16,9 @@ quiz_post_args.add_argument("name", type=str, help="Fill in the name of the quiz
 quiz_post_args.add_argument("number_of_questions", type=int, help="Fill in the number of questions", required=True)
 quiz_post_args.add_argument("topic", type=str, help="The topic of what your quiz will focus on", required=True)
 quiz_post_args.add_argument("course_id", type=int, help="What's the ID of the linked course", required=True)
+quiz_post_args.add_argument("difficulty_level", type=str, help="The difficulty level of the quiz.", required=True)
+quiz_post_args.add_argument("duration", type=int, help="Enter the allowed time to complete the quiz.", required=True)
+quiz_post_args.add_argument("passing_score", type=int, help="Enter the minimum score required to pass the quiz.", required=True)
 
 # Parser for PUT request arguments (updates)
 quiz_update_args = reqparse.RequestParser()
@@ -23,6 +26,9 @@ quiz_update_args.add_argument("name", type=str, help="Fill in the name of the qu
 quiz_update_args.add_argument("number_of_questions", type=int, help="Fill in the number of questions")
 quiz_update_args.add_argument("topic", type=str, help="Topic of what your quiz will focus on")
 quiz_update_args.add_argument("course_id", type=int, help="ID to the linked course")
+quiz_update_args.add_argument("difficulty_level", type=str, help="The difficulty level of the quiz.")
+quiz_update_args.add_argument("duration", type=int, help="Enter the allowed time to complete the quiz.")
+quiz_update_args.add_argument("passing_score", type=int, help="Enter the minimum score required to pass the quiz.")
 
 # Fields for marshalling the Quiz model
 resource_fields = {
@@ -30,7 +36,11 @@ resource_fields = {
     "name": fields.String,
     "number_of_questions": fields.Integer,
     "topic": fields.String,
-    "course_id": fields.Integer
+    "course_id": fields.Integer,
+    "difficulty_level": fields.String,
+    "duration": fields.Integer,
+    "passing_score": fields.Integer,
+    "date_created": fields.DateTime
 }
 
 
@@ -56,7 +66,10 @@ class QuizResource(Resource):
             name=args["name"],
             number_of_questions=args["number_of_questions"],
             topic=args["topic"],
-            course_id=args["course_id"])
+            course_id=args["course_id"],
+            difficulty_level=args["difficulty_level"],
+            duration=args["duration"],
+            passing_score=args["passing_score"])
 
         with get_db() as db:
             db.add(quiz)
@@ -105,6 +118,8 @@ class QuizResource(Resource):
 
             if args["course_id"] is not None:
                 abort(400, message="Updating 'course_id' is not allowed")
+            if args["difficulty_level"] is not None:
+                abort(400, message="Updating 'difficulty_level' is not allowed")
 
             if args["name"] is not None:
                 quiz.name = args["name"]
