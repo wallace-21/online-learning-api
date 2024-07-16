@@ -33,8 +33,10 @@ class Course(Base):
     max_students = Column(Integer, nullable=False)
     # number_of_assignment = Column(Integer, nullable=False)
     # number_of_lectures = Column(Integer, nullable=False)
-    quizzes = relationship("Quiz", back_populates="course")
+    # number_of_quizzes = Column(Integer, nullable=False)
 
+    quizzes = relationship("Quiz", back_populates="course")
+    assignments = relationship("Assignment", back_populates="course")
 
     def __init__(self, name, price, duration, description, certification, language, tags, max_students):
         """
