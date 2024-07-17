@@ -37,6 +37,7 @@ class Course(Base):
 
     quizzes = relationship("Quiz", back_populates="course")
     assignments = relationship("Assignment", back_populates="course")
+    lectures = relationship("Lecture", back_populates="course")
 
     def __init__(self, name, price, duration, description, certification, language, tags, max_students):
         """
