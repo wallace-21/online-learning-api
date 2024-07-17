@@ -9,35 +9,99 @@ from database import get_db
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from models.assignment import Assignment
 from models.course import Course
+from datetime import datetime
 
 
 # Custom function to parse datetime
 def valid_date(s):
     try:
-        return datetime.strptime(s, "%Y-%m-%d %H:%M")
+        return datetime.fromisoformat(s)
     except ValueError:
         raise ValueError(f"Not a valid date: '{s}'.")
 
+
 # Parser/args for POST request arguments (creates)
 assignment_post_args = reqparse.RequestParser()
-assignment_post_args.add_argument("name", type=str, help="Fill in the name of the assignment", required=True)
-assignment_post_args.add_argument("release_date", type=valid_date, help="Fill in the release date (format: YYYY-MM-DD HH:MM)", required=True)
-assignment_post_args.add_argument("due_date", type=valid_date, help="Fill in the due date (format: YYYY-MM-DD HH:MM)", required=True)
-assignment_post_args.add_argument("course_id", type=int, help="What's the ID of the linked course", required=True)
-assignment_post_args.add_argument("description", type=str, help="The description of the assignment", required=True)
-assignment_post_args.add_argument("max_marks", type=int, help="The maximum marks for the assignment", required=True)
-assignment_post_args.add_argument("submission_type", type=str, help="The type of submission required", required=True)
-
+assignment_post_args.add_argument(
+    "name",
+    type=str,
+    help="Fill in the name of the assignment",
+    required=True
+)
+assignment_post_args.add_argument(
+    "release_date",
+    type=valid_date,
+    help="Fill in the release date (format: YYYY-MM-DD HH:MM)",
+    required=True
+)
+assignment_post_args.add_argument(
+    "due_date",
+    type=valid_date,
+    help="Fill in the due date (format: YYYY-MM-DD HH:MM)",
+    required=True
+)
+assignment_post_args.add_argument(
+    "course_id",
+    type=int,
+    help="What's the ID of the linked course",
+    required=True
+)
+assignment_post_args.add_argument(
+    "description",
+    type=str,
+    help="The description of the assignment",
+    required=True
+)
+assignment_post_args.add_argument(
+    "max_marks",
+    type=int,
+    help="The maximum marks for the assignment",
+    required=True
+)
+assignment_post_args.add_argument(
+    "submission_type",
+    type=str,
+    help="The type of submission required",
+    required=True
+)
 
 # Parser/args for PUT request arguments (updates)
 assignment_update_args = reqparse.RequestParser()
-assignment_update_args.add_argument("name", type=str, help="Fill in the name of the assignment")
-assignment_update_args.add_argument("release_date", type=valid_date, help="Fill in the release date (format: YYYY-MM-DD HH:MM:SS)")
-assignment_update_args.add_argument("due_date", type=valid_date, help="Fill in the due date (format: YYYY-MM-DD HH:MM:SS)")
-assignment_update_args.add_argument("course_id", type=int, help="What's the ID of the linked course")
-assignment_update_args.add_argument("description", type=str, help="The description of the assignment")
-assignment_update_args.add_argument("max_marks", type=int, help="The maximum marks for the assignment")
-assignment_update_args.add_argument("submission_type", type=str, help="The type of submission required")
+assignment_update_args.add_argument(
+    "name",
+    type=str,
+    help="Fill in the name of the assignment"
+)
+assignment_update_args.add_argument(
+    "release_date",
+    type=valid_date,
+    help="Fill in the release date (format: YYYY-MM-DD HH:MM:SS)"
+)
+assignment_update_args.add_argument(
+    "due_date",
+    type=valid_date,
+    help="Fill in the due date (format: YYYY-MM-DD HH:MM:SS)"
+)
+assignment_update_args.add_argument(
+    "course_id",
+    type=int,
+    help="What's the ID of the linked course"
+)
+assignment_update_args.add_argument(
+    "description",
+    type=str,
+    help="The description of the assignment"
+)
+assignment_update_args.add_argument(
+    "max_marks",
+    type=int,
+    help="The maximum marks for the assignment"
+)
+assignment_update_args.add_argument(
+    "submission_type",
+    type=str,
+    help="The type of submission required"
+)
 
 
 # Fields for marshalling the Assignment model
@@ -158,7 +222,7 @@ class AssignmentResource(Resource):
         """
 
         with get_db() as db:
-            assignment= db.query(Assignment).filter_by(id=assignment_id).first()
+            assignment = db.query(Assignment).filter_by(id=assignment_id).first()
             if not assignment:
                 abort(404, message="Quiz not found")
 
@@ -186,7 +250,8 @@ class AssignmentsResource(Resource):
 
 class CourseAssignmentResource(Resource):
     """
-        Resource for handling operations to retrieve assignment by course ID.
+        Resource for handling operations to
+        retrieve assignment by course ID.
     """
 
     @marshal_with(resource_fields)
@@ -195,7 +260,8 @@ class CourseAssignmentResource(Resource):
             Retrieves all assignment associated with a given course ID.
 
             Args:
-                assignment_id (int): The ID of the course for which assignments are to be retrieved.
+                assignment_id (int): The ID of the course
+                for which assignments are to be retrieved.
 
             Returns:
                 A list of assignments associated with the given course ID.
