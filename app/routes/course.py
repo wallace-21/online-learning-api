@@ -17,12 +17,21 @@ course_post_args.add_argument("price", type=int,
                               help="How much much does the course cost?",
                               default=0)
 course_post_args.add_argument("duration", type=str,
-                              help="How long does the the course take?",
-                              default="selfpace")
+                              help="How long does the the course take?")
 course_post_args.add_argument("description", type=str,
                               help="description of the course")
 course_post_args.add_argument("certification", type=bool,
-                              help="Does the course provide certification", default=False)
+                              help="Does the course provide certification",
+                              default=False)
+course_post_args.add_argument("language", type=str,
+                              help="The language in which the course is conducted.",
+                              required=True)
+course_post_args.add_argument("tags", type=str,
+                              help="Tasgs or categories associated with the course.",
+                              required=True)
+course_post_args.add_argument("max_students", type=int,
+                              help="Maximum number of students allowed to enroll in the course.",
+                              required=True)
 
 # Parser for PUT request arguments (updates)
 course_update_args = reqparse.RequestParser()
@@ -36,14 +45,22 @@ course_update_args.add_argument("description", type=str,
                                 help="description of the course")
 course_update_args.add_argument("certification", type=bool,
                                 help="Does the course provide certification")
-
+course_update_args.add_argument("language",
+                                help="The language in which the course is conducted.")
+course_update_args.add_argument("tags",
+                                help="Tasgs or categories associated with the course.")
+course_update_args.add_argument("max_students",
+                                help="Maximum number of students allowed to enroll in the course.")
 # Fields for marshalling the Course model
 resource_fields = {
         "id": fields.Integer,
         "name": fields.String,
+        "language": fields.String,
         "price": fields.Integer,
         "duration": fields.String,
         "certification": fields.Boolean,
+        "max_students": fields.Integer,
+        "tags": fields.String,
         "description": fields.String
 }
 
@@ -70,6 +87,9 @@ class CourseResource(Resource):
                         price=args["price"],
                         duration=args["duration"],
                         certification=args["certification"],
+                        language=args["language"],
+                        tags=args["tags"],
+                        max_students=args["max_students"],
                         description=args["description"])
 
         with get_db() as db:
@@ -79,31 +99,31 @@ class CourseResource(Resource):
         return course, 201
 
     @marshal_with(resource_fields)
-    def get(self, course_name):
+    def get(self, course_id):
         """
             Handle GET requests to retrieve a user by ID.
 
             Args:
-                course_name (str): The name of the course to retrieve.
+                course_id (str): The name of the course to retrieve.
 
             Returns:
                 The course object if found, or a 404 error
                 if the course does not exist.
         """
         with get_db() as db:
-            course = db.query(Course).filter_by(name=course_name).first()
+            course = db.query(Course).filter_by(id=course_id).first()
             if not course:
                 abort(404, message="Course not found")
 
             return course, 201
 
     @marshal_with(resource_fields)
-    def put(self, course_name):
+    def put(self, course_id):
         """
             Update an existing user's details.
 
             Args:
-                course_name (str): The name of the course to update.
+                course_id (str): The name of the course to update.
 
             Returns:
                 The updated course object and HTTP status code 201.
@@ -111,10 +131,20 @@ class CourseResource(Resource):
         args = course_update_args.parse_args()
 
         with get_db() as db:
-            course = db.query(Course).filter_by(id=course_name).first()
+            course = db.query(Course).filter_by(id=course_id).first()
             if not course:
                 abort(404, message="Course not found")
 
+            if args["certification"] is not None:
+                abort(400, message="Updating 'certification' is not allowed")
+
+            if args["certification"] is None:
+                course.certification = True
+
+            if args["tags"] is not None:
+                course.tags = args["tags"]
+            if args["max_students"] is not None:
+                course.max_students = args["max_students"]
             if args["name"] is not None:
                 course.name = args["name"]
             if args["price"] is not None:
@@ -129,11 +159,11 @@ class CourseResource(Resource):
 
             return course, 201
 
-    def delete(self, course_name):
+    def delete(self, course_id):
         """ Delete an existing course.
 
             Args:
-                course_name (str): The ID of the user to delete.
+                course_id (str): The ID of the user to delete.
 
             Raises:
                 404: If the course is not found.
@@ -142,7 +172,7 @@ class CourseResource(Resource):
                 dict: A message confirming the course has been deleted.
         """
         with get_db() as db:
-            course = db.query(Course).filter_by(id=course_name).first()
+            course = db.query(Course).filter_by(id=course_id).first()
             if not course:
                 abort(404, message="course not found")
 
