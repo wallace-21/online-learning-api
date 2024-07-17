@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Learning API</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="icon2.jpg"/>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="logo2.png" alt="Logo">
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Docs</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Signup</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Online Learning API</h1>
+                <p>The most accurate and reliable course data.</p>
+                <a href="#" class="cta-button">Get Started</a>
+            </div>
+        </section>
+        
+        <section class="endpoint">
+            <div class="container">
+                <div class="endpoint-container">
+                    <label for="endpoint">API Endpoint:</label>
+                    <input id="endpoint" type="text" class="form-control" placeholder="course/1/">
+                    <button id="loadEndpoint" class="button">Load</button>
+                    <button id="createData" class="button">Create</button>
+                    <button id="updateData" class="button">Update</button>
+                    <button id="deleteData" class="button">Delete</button>
+                </div>
+                <textarea id="jsonInput" class="json-input" placeholder="Enter JSON data here..."></textarea>
+                <div id="result" class="result-container">
+                    <p>Example Response:</p>
+                    <pre>
+{
+    "id": 1,
+    "name": "Introduction to Programming",
+    "price": 29.99,
+    "duration": "6 weeks",
+    "description": "A beginner-friendly course on programming basics.",
+    "certification": true,
+    "date_created": "2024-01-01T00:00:00Z"
+}
+                    </pre>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features">
+            <div class="container">
+                <h2>Features</h2>
+                <div class="feature">
+                    <h3>Create Data</h3>
+                    <p>Make, update, get, and delete data.</p>
+                </div>
+                <div class="feature">
+                    <h3>Global Coverage</h3>
+                    <p>Course data from all around the world.</p>
+                </div>
+                <div class="feature">
+                    <h3>Easy Integration</h3>
+                    <p>Integrate our API with your application effortlessly.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Online Learning API. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
