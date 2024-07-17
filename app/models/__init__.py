@@ -1,5 +1,5 @@
 from .course import Course
 from .assignment import Assignment
-
-__all__ = ['Course', 'Assignment']
+from .lecture import Lecture
+__all__ = ['Course', 'Assignment', 'Lecture']
 
