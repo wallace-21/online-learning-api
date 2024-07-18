@@ -121,6 +121,10 @@ class QuizResource(Resource):
             if args["difficulty_level"] is not None:
                 abort(400, message="Updating 'difficulty_level' is not allowed")
 
+            if args["duration"] is not None:
+                quiz.duration = args["duration"]
+            if args["passing_score"] is not None:
+                quiz.passing_score = args["passing_score"]
             if args["name"] is not None:
                 quiz.name = args["name"]
             if args["number_of_questions"] is not None:

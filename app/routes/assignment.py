@@ -194,7 +194,10 @@ class AssignmentResource(Resource):
             if args["course_id"] is not None:
                 abort(400, message="Updating 'course_id' is not allowed")
             if args["release_date"] is not None:
-                abort(400, message="Can't update 'release_datei'")
+                abort(400, message="Can't update 'release_date'")
+
+            if args["submission_type"] is not None:
+                abort(400, message="Can't update 'submission_type'")
 
             if args["due_date"] is not None:
                 assignment.due_date = args["due_date"]
