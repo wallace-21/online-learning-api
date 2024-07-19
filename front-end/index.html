@@ -30,15 +30,16 @@
         <section class="hero">
             <div class="container">
                 <h1>Online Learning API</h1>
-                <p>The most accurate and reliable course data.</p>
-                <a href="#" class="cta-button">Get Started</a>
+                <p>All the course data you've ever wanted</p>
+
+                <!--<a href="#" class="cta-button">Get Started</a -->
             </div>
         </section>
         
         <section class="endpoint">
             <div class="container">
                 <div class="endpoint-container">
-                    <label for="endpoint">API Endpoint:</label>
+                    <label for="endpoint">https://olapi.com./api/</label>
                     <input id="endpoint" type="text" class="form-control" placeholder="course/1/">
                     <button id="loadEndpoint" class="button">Load</button>
                     <button id="createData" class="button">Create</button>
@@ -49,15 +50,41 @@
                 <div id="result" class="result-container">
                     <p>Example Response:</p>
                     <pre>
-{
-    "id": 1,
-    "name": "Introduction to Programming",
-    "price": 29.99,
-    "duration": "6 weeks",
-    "description": "A beginner-friendly course on programming basics.",
-    "certification": true,
-    "date_created": "2024-01-01T00:00:00Z"
-}
+[
+    {
+        "id": 1,
+        "name": "Introduction to Python",
+        "language": "English",
+        "price": 50,
+        "duration": "4 weeks",
+        "certification": true,
+        "max_students": 100,
+        "tags": "programming, python",
+        "description": "Learn the basics of Python programming."
+  },
+    {
+        "id": 2,
+        "name": "Python Basics Quiz (Medium)",
+        "number_of_questions": 15,
+        "topic": "Python",
+        "course_id": 1,
+        "difficulty_level": "Medium",
+        "duration": 20,
+        "passing_score": 75,
+        "date_created": "Wed, 17 Jul 2024 14:55:25 -0000"
+    },
+    {
+        "id": 3,
+        "name": "Python Basics Quiz (Hard)",
+        "number_of_questions": 20,
+        "topic": "Python",
+        "course_id": 1,
+        "difficulty_level": "Hard",
+        "duration": 25,
+        "passing_score": 80,
+        "date_created": "Wed, 17 Jul 2024 14:57:34 -0000"
+    }
+]
                     </pre>
                 </div>
             </div>
@@ -65,7 +92,7 @@
         
         <section class="features">
             <div class="container">
-                <h2>Features</h2>
+                <h2>How can I use it?</h2>
                 <div class="feature">
                     <h3>Create Data</h3>
                     <p>Make, update, get, and delete data.</p>
