@@ -3,17 +3,42 @@ from flask_restful import Api
 from config import Config
 from database import Base, engine, get_db
 from models.user import User
-from routes.user import UserResource, UsersResource
+from routes.user import UserResource, UsersResource, LoginResource
 from routes.course import CourseResource, CoursesResource
 from routes.quiz import QuizResource, QuizzesResource, CourseQuizzesResource
 from routes.assignment import AssignmentResource, AssignmentsResource, CourseAssignmentResource
 from routes.lecture import LectureResource, LecturesResource, CourseLectureResource
 from flask_cors import CORS
+from flask_swagger_ui import get_swaggerui_blueprint
+from routes.auth import auth
+
 
 app = Flask(__name__)
 CORS(app)
 app.config.from_object(Config)
 api = Api(app)
+
+SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+API_URL = '/static/swagger.json'  # Our API url (can of course be a local resource)
+
+# Call factory function to create our blueprint
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': "Online Learning API"
+    },
+    # oauth_config={  # OAuth config. See https://github.com/swagger-api/swagger-ui#oauth2-configuration .
+    #    'clientId': "your-client-id",
+    #    'clientSecret': "your-client-secret-if-required",
+    #    'realm': "your-realms",
+    #    'appName': "your-app-name",
+    #    'scopeSeparator': " ",
+    #    'additionalQueryStringParams': {'test': "hello"}
+    # }
+)
+
+app.register_blueprint(swaggerui_blueprint)
 
 # Initialize database
 Base.metadata.create_all(bind=engine)
@@ -21,8 +46,8 @@ Base.metadata.create_all(bind=engine)
     
 # Register resources
 # User endpoints
-api.add_resource(UserResource, "/user", "/user/<string:user_id>")
-api.add_resource(UsersResource, "/users")
+api.add_resource(UserResource, "/user", "/user/<int:user_id>")
+api.add_resource(LoginResource, "/login")
 
 # Course endpoints
 api.add_resource(CourseResource, "/course", "/course/<int:course_id>")

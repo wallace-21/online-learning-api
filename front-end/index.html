@@ -6,21 +6,33 @@
     <title>Online Learning API</title>
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="icon" href="/images/icon2.jpg"/>
+    <script>
+        function redirectToDocs() {
+            window.location.href = "http://127.0.0.1:5000/api/docs/";
+        }
+        function redirectToSignup() {
+            window.location.href = "signup.html";
+        }
+        function redirectToIndex() {
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="/images/logo2.png" alt="Logo">
+                    <img src="/images/logo2.png" alt="Logo" onclick="redirectToIndex()">
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#">Docs</a></li>
+                        <li><a href="#" onclick="redirectToDocs()">Docs</a></li>
                         <li><a href="#">API</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#">Login</a></li>
-                        <li><a href="#">Signup</a></li>
+                        <li><a href="#" onclick="redirectToSignup()">Signup</a></li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -31,62 +43,7 @@
             <div class="container">
                 <h1>Online Learning API</h1>
                 <p>All the course data you've ever wanted</p>
-
-                <!--<a href="#" class="cta-button">Get Started</a -->
-            </div>
-        </section>
-        
-        <section class="endpoint">
-            <div class="container">
-                <div class="endpoint-container">
-                    <label for="endpoint">https://olapi.com./api/</label>
-                    <input id="endpoint" type="text" class="form-control" placeholder="course/1/">
-                    <button id="loadEndpoint" class="button">Load</button>
-                    <button id="createData" class="button">Create</button>
-                    <button id="updateData" class="button">Update</button>
-                    <button id="deleteData" class="button">Delete</button>
-                </div>
-                <textarea id="jsonInput" class="json-input" placeholder="Enter JSON data here..."></textarea>
-                <div id="result" class="result-container">
-                    <p>Example Response:</p>
-                    <pre>
-[
-    {
-        "id": 1,
-        "name": "Introduction to Python",
-        "language": "English",
-        "price": 50,
-        "duration": "4 weeks",
-        "certification": true,
-        "max_students": 100,
-        "tags": "programming, python",
-        "description": "Learn the basics of Python programming."
-  },
-    {
-        "id": 2,
-        "name": "Python Basics Quiz (Medium)",
-        "number_of_questions": 15,
-        "topic": "Python",
-        "course_id": 1,
-        "difficulty_level": "Medium",
-        "duration": 20,
-        "passing_score": 75,
-        "date_created": "Wed, 17 Jul 2024 14:55:25 -0000"
-    },
-    {
-        "id": 3,
-        "name": "Python Basics Quiz (Hard)",
-        "number_of_questions": 20,
-        "topic": "Python",
-        "course_id": 1,
-        "difficulty_level": "Hard",
-        "duration": 25,
-        "passing_score": 80,
-        "date_created": "Wed, 17 Jul 2024 14:57:34 -0000"
-    }
-]
-                    </pre>
-                </div>
+                <a href="#" class="cta-button" onclick="redirectToSignup()">Get Started</a>
             </div>
         </section>
         
@@ -113,6 +70,5 @@
             <p>&copy; 2024 Online Learning API. All rights reserved.</p>
         </div>
     </footer>
-    <script src="/scripts/stripts.js"></script>
 </body>
 </html>

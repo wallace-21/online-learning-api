@@ -1,0 +1,950 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Online Learning API",
+    "description": "This is the documentation for the Online Learning API, which provides endpoints for managing courses, quizzes, assignments, and lectures.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Courses",
+      "description": "Operations related to courses"
+    },
+    {
+      "name": "Quizzes",
+      "description": "Operations related to quizzes"
+    },
+    {
+      "name": "Assignments",
+      "description": "Operations related to assignments"
+    },
+    {
+      "name": "Lectures",
+      "description": "Operations related to lectures"
+    },
+    {
+      "name": "Users",
+      "description": "Operations related to user management"
+    }
+  ],
+  "paths": {
+    "/courses": {
+      "get": {
+        "tags": ["Courses"],
+        "summary": "Get all courses",
+        "operationId": "getCourses",
+        "responses": {
+          "200": {
+            "description": "A list of courses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Course"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/course/{course_id}": {
+      "get": {
+        "tags": ["Courses"],
+        "summary": "Get a course by ID",
+        "operationId": "getCourseById",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["Courses"],
+        "summary": "Update a course by ID",
+        "operationId": "updateCourse",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Courses"],
+        "summary": "Delete a course by ID",
+        "operationId": "deleteCourse",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Course deleted"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/course": {
+      "post": {
+        "tags": ["Courses"],
+        "summary": "Create a new course",
+        "operationId": "createCourse",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/quizzes": {
+      "get": {
+        "tags": ["Quizzes"],
+        "summary": "Get all quizzes",
+        "operationId": "getQuizzes",
+        "responses": {
+          "200": {
+            "description": "A list of quizzes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quiz"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/quiz/{quiz_id}": {
+      "get": {
+        "tags": ["Quizzes"],
+        "summary": "Get a quiz by ID",
+        "operationId": "getQuizById",
+        "parameters": [
+          {
+            "name": "quiz_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A quiz",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quiz"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["Quizzes"],
+        "summary": "Update a quiz by ID",
+        "operationId": "updateQuiz",
+        "parameters": [
+          {
+            "name": "quiz_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quiz"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated quiz",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quiz"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Quizzes"],
+        "summary": "Delete a quiz by ID",
+        "operationId": "deleteQuiz",
+        "parameters": [
+          {
+            "name": "quiz_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Quiz deleted"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/quiz": {
+      "post": {
+        "tags": ["Quizzes"],
+        "summary": "Create a new quiz",
+        "operationId": "createQuiz",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Quiz"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created quiz",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quiz"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/course/{course_id}/quizzes": {
+      "get": {
+        "tags": ["Quizzes"],
+        "summary": "Get all quizzes for a course",
+        "operationId": "getCourseQuizzes",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of quizzes for the course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quiz"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/assignments": {
+      "get": {
+        "tags": ["Assignments"],
+        "summary": "Get all assignments",
+        "operationId": "getAssignments",
+        "responses": {
+          "200": {
+            "description": "A list of assignments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Assignment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/assignment/{assignment_id}": {
+      "get": {
+        "tags": ["Assignments"],
+        "summary": "Get an assignment by ID",
+        "operationId": "getAssignmentById",
+        "parameters": [
+          {
+            "name": "assignment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An assignment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assignment"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["Assignments"],
+        "summary": "Update an assignment by ID",
+        "operationId": "updateAssignment",
+        "parameters": [
+          {
+            "name": "assignment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Assignment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated assignment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assignment"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Assignments"],
+        "summary": "Delete an assignment by ID",
+        "operationId": "deleteAssignment",
+        "parameters": [
+          {
+            "name": "assignment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Assignment deleted"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/assignment": {
+      "post": {
+        "tags": ["Assignments"],
+        "summary": "Create a new assignment",
+        "operationId": "createAssignment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Assignment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created assignment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assignment"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/lectures": {
+      "get": {
+        "tags": ["Lectures"],
+        "summary": "Get all lectures",
+        "operationId": "getLectures",
+        "responses": {
+          "200": {
+            "description": "A list of lectures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Lecture"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/lecture/{lecture_id}": {
+      "get": {
+        "tags": ["Lectures"],
+        "summary": "Get a lecture by ID",
+        "operationId": "getLectureById",
+        "parameters": [
+          {
+            "name": "lecture_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A lecture",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lecture"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["Lectures"],
+        "summary": "Update a lecture by ID",
+        "operationId": "updateLecture",
+        "parameters": [
+          {
+            "name": "lecture_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Lecture"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated lecture",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lecture"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Lectures"],
+        "summary": "Delete a lecture by ID",
+        "operationId": "deleteLecture",
+        "parameters": [
+          {
+            "name": "lecture_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Lecture deleted"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/lecture": {
+      "post": {
+        "tags": ["Lectures"],
+        "summary": "Create a new lecture",
+        "operationId": "createLecture",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Lecture"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created lecture",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lecture"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Register a new user",
+        "operationId": "registerUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Authenticate a user",
+        "operationId": "authenticateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/user/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get a user by ID",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Course": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "max_students": {
+            "type": "number"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "certification": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "price", "duration", "description", "certification"]
+      },
+      "Assignment": {
+        "type": "object",
+        "properties": {
+          "release_date": {
+            "type": "date-time",
+            "format": "date-time",
+            "example": "2024-01-01 00:00"
+          },
+          "name": {
+            "type": "string"
+          },
+          "max_marks": {
+            "type": "number"
+          },
+          "submission_type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "due_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-01 00:00"
+          },
+          "course_id": {
+            "type": "integer"
+          }
+        },
+        "required": ["name", "description", "due_date", "course_id"]
+      },
+      "Lecture": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "date_and_time": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-01 00:00"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "mentors": {
+            "type": "string"
+          },
+          "course_id": {
+            "type": "integer"
+          }
+        },
+        "required": ["name", "content", "date", "course_id"]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["username", "password"]
+      },
+      "Quiz": {
+        "type": "object",
+        "properties": {
+          "course_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "number_of_questions": {
+            "type": "integer"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "difficulty_level": {
+            "type": "string"
+          },
+          "passing_score": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
