@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Online Learning API</title>
+    <link rel="stylesheet" href="/styles/signup.css">
+    <link rel="icon" href="/images/icon2.jpg"/>
+    <script>
+        function redirectToDocs() {
+            window.location.href = "http://127.0.0.1:5000/api/docs/";
+        }
+        function redirectToIndex() {
+            window.location.href = "index.html";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/images/logo2.png" alt="Logo" onclick="redirectToIndex()">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="redirectToDocs()">Docs</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Signup</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="signup">
+            <div class="container">
+                <h2>Create Your Account</h2>
+                <form action="/signup" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password:</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Online Learning API. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
