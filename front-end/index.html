@@ -6,21 +6,33 @@
     <title>Online Learning API</title>
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="icon" href="/images/icon2.jpg"/>
+    <script>
+        function redirectToDocs() {
+            window.location.href = "http://127.0.0.1:5000/api/docs/";
+        }
+        function redirectToSignup() {
+            window.location.href = "signup.html";
+        }
+        function redirectToIndex() {
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="/images/logo2.png" alt="Logo">
+                    <img src="/images/logo2.png" alt="Logo" onclick="redirectToIndex()">
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#">Docs</a></li>
+                        <li><a href="#" onclick="redirectToDocs()">Docs</a></li>
                         <li><a href="#">API</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#">Login</a></li>
-                        <li><a href="#">Signup</a></li>
+                        <li><a href="#" onclick="redirectToSignup()">Signup</a></li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -31,8 +43,7 @@
             <div class="container">
                 <h1>Online Learning API</h1>
                 <p>All the course data you've ever wanted</p>
-
-                <a href="#" class="cta-button">Get Started</a>
+                <a href="#" class="cta-button" onclick="redirectToSignup()">Get Started</a>
             </div>
         </section>
         
