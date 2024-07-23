@@ -7,42 +7,30 @@ from sqlalchemy import Column, String, Integer, Boolean, DateTime
 from database import Base
 from datetime import datetime
 
-
 class User(Base):
-    """
-        User model for representing users in the database.
-
-        Attributes:
-            id (str): The primary key identifier for the user.
-            name (str): The first name of the user.
-            surname (str): The surname of the user.
-            instructor (bool): Whether the user is an instructor.
-            nationality (str): The nationality of the user.
-            email (str): The email address of the user.
-            password (str): The password of the user.
-            date_created (datetime): The date and time when the
-                                     user was created.
-    """
     __tablename__ = 'users'
 
-    id = Column(String, primary_key=True)
-    name = Column(String, nullable=False)
-    surname = Column(String, nullable=False)
-    instructor = Column(Boolean, default=False)
-    nationality = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    password = Column(String, nullable=False)
-    date_created = Column(DateTime, default=datetime.utcnow)
+    id = Column(Integer, primary_key=True)
+    username = Column(String(length=80), unique=True, nullable=False)
+    password = Column(String(length=200), nullable=False)
 
-    def __init__(self, id, name, surname, instructor, nationality,
-                 email, password):
+    def set_password(self, password):
         """
-            Initialize a new User instance.
+        Set the password for the user, hashing it before storage.
+
+        Args:
+            password (str): The plain-text password to hash and store.
         """
-        self.id = id
-        self.name = name
-        self.surname = surname
-        self.instructor = instructor
-        self.nationality = nationality
-        self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        """
+        Check if the provided password matches the stored hashed password.
+
+        Args:
+            password (str): The plain-text password to check.
+
+        Returns:
+            bool: True if the password matches, False otherwise.
+        """
+        return check_password_hash(self.password, password)
