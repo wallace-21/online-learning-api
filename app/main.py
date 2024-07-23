@@ -3,13 +3,15 @@ from flask_restful import Api
 from config import Config
 from database import Base, engine, get_db
 from models.user import User
-from routes.user import UserResource, UsersResource
+from routes.user import UserResource, UsersResource, LoginResource
 from routes.course import CourseResource, CoursesResource
 from routes.quiz import QuizResource, QuizzesResource, CourseQuizzesResource
 from routes.assignment import AssignmentResource, AssignmentsResource, CourseAssignmentResource
 from routes.lecture import LectureResource, LecturesResource, CourseLectureResource
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
+from routes.auth import auth
+
 
 app = Flask(__name__)
 CORS(app)
@@ -44,8 +46,8 @@ Base.metadata.create_all(bind=engine)
     
 # Register resources
 # User endpoints
-api.add_resource(UserResource, "/user", "/user/<string:user_id>")
-api.add_resource(UsersResource, "/users")
+api.add_resource(UserResource, "/user", "/user/<int:user_id>")
+api.add_resource(LoginResource, "/login")
 
 # Course endpoints
 api.add_resource(CourseResource, "/course", "/course/<int:course_id>")
