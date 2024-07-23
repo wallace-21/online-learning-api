@@ -551,6 +551,44 @@
         ]
       }
     },
+    "/course/{course_id}/assignments": {
+      "get": {
+        "tags": ["Assignments"],
+        "summary": "Get all assignments for a course",
+        "operationId": "getCourseAssignments",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of assignments for the course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Assignment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    
     "/lectures": {
       "get": {
         "tags": ["Lectures"],
@@ -578,6 +616,7 @@
         ]
       }
     },
+    
     "/lecture/{lecture_id}": {
       "get": {
         "tags": ["Lectures"],
@@ -699,6 +738,43 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Lecture"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/course/{course_id}/lectures": {
+      "get": {
+        "tags": ["Lectures"],
+        "summary": "Get all lectures for a course",
+        "operationId": "getCourseLectures",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of lectures for the course",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Lecture"
+                  }
                 }
               }
             }
